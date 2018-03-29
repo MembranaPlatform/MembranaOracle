@@ -1,0 +1,7 @@
+node_modules
+*.txt
+*.sh
+config
+build-sd
+truffle.js
+truffle-config.js

@@ -1,0 +1,16 @@
+{
+  "name": "membranaoracle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "almart0o",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.5.2",
+    "config": "^1.30.0",
+    "web3": "^1.0.0-beta.33"
+  }
+}

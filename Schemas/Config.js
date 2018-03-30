@@ -4,6 +4,8 @@ module.exports =  {
     'newContractExchange':  String,
     'queue': String,
     'blockchain': {
+      'gasPrice': 'numeric(<0,>)',
+      'gasLimit': 'numeric(<0,>)',
       'provider': String,
       'dealsAddress': String,
       'oracleAddress': String,

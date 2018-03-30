@@ -10,9 +10,7 @@ const amqpHost = config.get('amqp.host');
 const amqpPort = config.get('amqp.port');
 const amqpVhost = config.get('amqp.vhost');
 const exchange = config.get('oracle.exchange');
-const dealsAddress =  config.get('oracle.blockchain.dealsAddress');
-const oracleAddress =  config.get('oracle.blockchain.oracleAddress');
-const oraclePrivateKey =  config.get('oracle.blockchain.oraclePrivateKey');
+const blockchainSettings =  config.get('oracle.blockchain');
 const newContractExchange = config.get('oracle.newContractExchange');
 const queue = config.get('oracle.queue');
 
@@ -23,7 +21,7 @@ const queue = config.get('oracle.queue');
   const amqp  = new Amqp({
     url: `amqp://${amqpHost}:${amqpPort}/${amqpVhost}`
   });
-  // const blockchain = new Blockchain({dealsAddress, oracleAddress, oraclePrivateKey, amqp});
+  const blockchain = new Blockchain({amqp, dealsAbi, ...blockchainSettings});
   amqp.onChannelCreated = async () => {
     console.log('channelCreated..');
     try {
@@ -40,13 +38,18 @@ const queue = config.get('oracle.queue');
       console.error(e);
       throw new Error(errors.AMQP_BINDING_ERROR.data);
     }
-    // amqp.channel.consume(queue, msg => amqpRouter({msg, blockchain}), {noAck: true});
+    amqp.channel.consume(queue, msg => amqpRouter({msg, blockchain}), {noAck: true});
   };
   try {
     await amqp.init();
-    // await blockchain.init();
-    // blockchain.eventProcessing();
   } catch (e) {
     throw errors.AMQP_CONNECTION_ERROR.data;
   }
+  try {
+    await blockchain.init();
+  } catch (e) {
+    console.error(e);
+    throw errors.BLOCKCHAIN_INITIALIZATION_ERROR.data;
+  }
+  blockchain.eventProcessing();
 })();

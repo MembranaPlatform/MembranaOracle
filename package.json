@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "almart0o",
@@ -11,6 +12,7 @@
   "dependencies": {
     "amqplib": "^0.5.2",
     "config": "^1.30.0",
+    "validate-fields": "^4.0.0",
     "web3": "^1.0.0-beta.33"
   }
 }

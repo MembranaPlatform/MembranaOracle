@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 5000000"
   },
   "author": "almart0o",
   "license": "ISC",
@@ -14,5 +14,11 @@
     "config": "^1.30.0",
     "validate-fields": "^4.0.0",
     "web3": "^1.0.0-beta.33"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "ganache-cli": "^6.1.0",
+    "mocha": "^5.0.5"
   }
 }

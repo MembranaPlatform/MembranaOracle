@@ -3,7 +3,7 @@ const errors = require('./lib/errors');
 // const Config = require('./Schemas/Config');
 const Blockchain = require('./lib/blockchain');
 const Amqp = require('./lib/connection');
-const validate  = require('validate-fields')();
+// const validate  = require('validate-fields')();
 const dealsAbi =  require('./abi/MembranaDeals.js');
 const amqpRouter = require('./lib/amqpRouter');
 const amqpHost = config.get('amqp.host');
@@ -60,5 +60,5 @@ const newContractExchange = config.get('oracle.newContractExchange');
     console.error(e);
     throw errors.BLOCKCHAIN_INITIALIZATION_ERROR.data;
   }
-  blockchain.eventProcessingLoop();
+  blockchain.startEventProcessingLoop();
 })();

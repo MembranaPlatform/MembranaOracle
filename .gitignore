@@ -5,3 +5,4 @@ config
 build-sd
 truffle.js
 truffle-config.js
+test/config.js

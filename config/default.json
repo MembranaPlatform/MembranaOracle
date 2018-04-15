@@ -1,0 +1,45 @@
+{
+  "exchanger": {
+    "host": "127.0.0.1",
+    "port": "5000",
+    "endPoint": "http://127.0.0.1:5000",
+    "cacheTimeout": 100,
+    "dataSizeLimit": 8096,
+    "procEndpointInterval": 2000,
+    "exchange": "subscriptions",
+    "tradingDataExchange": "tradingData",
+    "queue": "exchanger",
+    "bittrex": {
+      "defaultEndpointInterval": 2000,
+      "endpointIntervals": {
+        "balances": 1000,
+        "candles": 50000,
+        "orders": 1000,
+        "orders": 1000,
+        "trades": 5000,
+        "ticker": 2000,
+        "rates": 1000
+      }
+    }
+  },
+  "oracle": {
+    "exchange": "contractUpdates",
+    "newContractExchange": "newContracts",
+    "queue": "oracle",
+    "blockchain": {
+      "provider": "",
+      "dealsContractAddress": "",
+      "oracleAddress": "",
+      "oraclePrivateKey": ""
+    }
+  },
+  "amqp": {
+    "host": "127.0.0.1",
+    "port": 5672,
+    "vhost": "dev"
+  },
+  "memc": {
+    "host": "127.0.0.1",
+    "port": 11211
+  }
+}

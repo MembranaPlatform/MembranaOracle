@@ -1,5 +1,5 @@
 const chai = require('chai');
-const ganache = require('ganache-cli');;
+const ganache = require('ganache-cli');
 const expect = chai.expect;
 const Web3 = require('web3');
 const Blockchain = require('../lib/blockchain');

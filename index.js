@@ -25,7 +25,7 @@ const newContractExchange = config.get('oracle.newContractExchange');
     newDealCallback: async (data) => {
       try {
         const chan = await amqp.getChannel();
-        chan.publish(this.newContractExchange, 'new', Buffer.from(JSON.stringify(data)));
+        await chan.publish(this.newContractExchange, 'new', Buffer.from(JSON.stringify(data)));
       } catch (e) {
         throw new Error(errors.AMQP_ERROR.data);
       }
@@ -33,15 +33,17 @@ const newContractExchange = config.get('oracle.newContractExchange');
   amqp.onChannelCreated = async () => {
     console.log('channelCreated..');
     try {
-      (await amqp.getChannel()).assertExchange(exchange, 'topic', {durable: true});
-      (await amqp.getChannel()).assertExchange(newContractExchange, 'topic', {durable: true});
-      (await amqp.getChannel()).assertQueue(queue, {exclusive: true});
+      const chan = await amqp.getChannel();
+      await chan.assertExchange(exchange, 'topic', {durable: true});
+      await chan.assertExchange(newContractExchange, 'topic', {durable: true});
+      await chan.assertQueue(queue, {exclusive: true});
     } catch (e) {
       console.error(e);
       throw new Error(errors.AMQP_ERROR.data);
     }
     try {
-      (await amqp.getChannel()).bindQueue(queue, exchange, '#' );
+      const chan = await amqp.getChannel();
+      await chan.bindQueue(queue, exchange, '#' );
     } catch (e) {
       console.error(e);
       throw new Error(errors.AMQP_BINDING_ERROR.data);

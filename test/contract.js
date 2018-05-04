@@ -7,11 +7,17 @@ let blockchainSettings;
 const dealsAbi = require('../abi/MembranaDeals.js');
 const DealsBinary = require('./MembranaDeals.js');
 const BN = require('bn.js');
-let web3, acc1, acc2, acc3, membranaDeals, blockchain, dealParams;
+const sinon = require('sinon');
+const util = require('./util');
+const amqpRouter = require('../lib/amqpRouter');
+const config = require('./config');
+let web3, acc1, acc2, acc3, membranaDeals, blockchain, dealParams, amqp;
 
 describe('testing deal creating event',  () => {
+
+  before(() => { amqp = util.initAmqp({ cb: sinon.spy() }); });
   before('testnet initialization...', async () => {
-    blockchainSettings = require('./config.js');
+    blockchainSettings = config.oracle.blockchain;
     // module.exports = {
     //  gasPrice: '99',
     //  gasLimit: '5000000',
@@ -56,7 +62,8 @@ describe('testing deal creating event',  () => {
   it('blockchain event listner initialization', async () => {
     blockchain = new Blockchain({dealsAbi, ...blockchainSettings,
       newDealCallback: async(data) => {
-        console.log(data);
+        // console.log(data);
+        expect(data.amount).to.equal('15000000');
         blockchain.stopEventProcessingLoop();
       }
     });
@@ -88,9 +95,21 @@ describe('testing deal creating event',  () => {
     expect(dealState).to.equal('0');
   });
   it('verifying the deal', async  () => {
-    await blockchain.dealStateUpdate({
-      dealId: 0,
+    // await blockchain.dealStateUpdate({
+    //   dealId: 0,
+    //   state: 'verified',
+    // });
+    const arg = {
       state: 'verified',
+      dealId: 0
+    };
+    await amqpRouter({
+      msg: util.buildMsgForAmqpRouter({
+        exchange: config.oracle.exchange,
+        routingKey: 'toState',
+        arg
+      }),
+      blockchain
     });
     const dealState = await membranaDeals.methods.getState(0).call();
     expect(dealState).to.equal('1');

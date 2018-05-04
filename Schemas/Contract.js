@@ -5,7 +5,7 @@ module.exports =  {
   'maxLoss': 'int(0,100)',
   'startBalance': 'int(1,)',
   'targetBalance': 'int(1,)',
-  'amount': 'numericInt(0,)',
+  'amount': String,
   'currency': 'int(0,2)',
   'investor': String,
   'investorAddress': String,

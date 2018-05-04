@@ -25,7 +25,7 @@ const newContractExchange = config.get('oracle.newContractExchange');
     newDealCallback: async (data) => {
       try {
         const chan = await amqp.getChannel();
-        await chan.publish(this.newContractExchange, 'new', Buffer.from(JSON.stringify(data)));
+        await chan.publish(newContractExchange, 'new', Buffer.from(JSON.stringify(data)));
       } catch (e) {
         throw new Error(errors.AMQP_ERROR.data);
       }

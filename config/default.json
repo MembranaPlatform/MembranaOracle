@@ -24,7 +24,7 @@
   },
   "oracle": {
     "exchange": "contractUpdates",
-    "newContractExchange": "newContracts",
+    "newContractExchange": "contracts",
     "queue": "oracle",
     "blockchain": {
       "gasPrice": "99",

@@ -27,7 +27,7 @@ describe('testing deal creating event',  () => {
       maxLoss: 20,
       startBalance: 10000000,
       targetBalance: 20000000,
-      amount: 15000000,
+      amount: '15000000',
       investor: 'theInvestor',
       investorAddress: acc1,
       trader: 'mrTrader',

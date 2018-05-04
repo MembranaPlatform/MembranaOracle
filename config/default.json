@@ -27,6 +27,9 @@
     "newContractExchange": "newContracts",
     "queue": "oracle",
     "blockchain": {
+      "gasPrice": "99",
+      "gasLimit": "5000000",
+      "eventsLookupInterval": 3000,
       "provider": "",
       "dealsContractAddress": "",
       "oracleAddress": "",
@@ -36,7 +39,7 @@
   "amqp": {
     "host": "127.0.0.1",
     "port": 5672,
-    "vhost": "dev"
+    "vhost": "local"
   },
   "memc": {
     "host": "127.0.0.1",

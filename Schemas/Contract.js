@@ -10,5 +10,7 @@ module.exports =  {
   'investor': String,
   'investorAddress': String,
   'trader': String,
-  'traderAddress': String
+  'traderAddress': String,
+  'offerId': String,
+  'dealId': 'uint'
 };

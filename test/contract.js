@@ -38,7 +38,7 @@ describe('testing deal creating event',  () => {
       investorAddress: acc1,
       trader: 'mrTrader',
       traderAddress: acc2,
-      offerId: '31337',
+      offerId: '0x31337a',
       currency: 0,
     };
   });
@@ -62,7 +62,7 @@ describe('testing deal creating event',  () => {
   it('blockchain event listner initialization', async () => {
     blockchain = new Blockchain({dealsAbi, ...blockchainSettings,
       newDealCallback: async(data) => {
-        // console.log(data);
+        console.log(data);
         expect(data.amount).to.equal('15000000');
         blockchain.stopEventProcessingLoop();
       }
